@@ -42,9 +42,8 @@
 --
 --  `:lua require('lush').ify()`
 
-local lush = require('lush')
-local hsl = lush.hsl
-
+local lush      = require('lush')
+local hsl       = lush.hsl
 
 local sea_deep  = hsl(200, 41, 7) -- you can just type them normally.
 local sea_white = hsl(0, 0, 100)
@@ -72,7 +71,6 @@ local theme     = lush(function(injected_functions)
     -- lCursor        { }, -- Character under the cursor when |language-mapping| is used (see 'guicursor')
     -- CursorIM       { }, -- Like Cursor, but used when in IME mode |CursorIM|
     -- CursorColumn   { }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
-    CursorLine { bg = Normal.bg.lighten(10) }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
     -- Directory      { }, -- Directory names (and other special names in listings)
     -- DiffAdd        { }, -- Diff mode: Added line |diff.txt|
     -- DiffChange     { }, -- Diff mode: Changed line |diff.txt|
@@ -100,7 +98,10 @@ local theme     = lush(function(injected_functions)
     -- MsgSeparator   { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
     -- MoreMsg        { }, -- |more-prompt|
     -- NonText        { }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-    Normal { bg = sea_deep, fg = sea_white }, -- Normal text
+    Normal { bg = sea_deep, fg = sea_white },  -- Normal text
+    Comment { fg = Normal.bg.de(25).li(25).ro(-10) },
+    CursorLine { bg = Normal.bg.lighten(10) }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
+    LineNr { Comment, gui = "italic" },
     -- NormalFloat    { }, -- Normal text in floating windows.
     -- FloatBorder    { }, -- Border of floating windows.
     -- FloatTitle     { }, -- Title of floating windows.
@@ -128,6 +129,7 @@ local theme     = lush(function(injected_functions)
     -- TabLineSel     { }, -- Tab pages line, active tab page label
     -- Title          { }, -- Titles for output from ":set all", ":autocmd" etc.
     -- Visual         { }, -- Visual mode selection
+    Visual { fg = Normal.bg, bg = Normal.fg }, -- Try pressing v and selecting some text
     -- VisualNOS      { }, -- Visual mode selection when vim is "Not Owning the Selection".
     -- WarningMsg     { }, -- Warning messages
     -- Whitespace     { }, -- "nbsp", "space", "tab" and "trail" in 'listchars'

@@ -1,57 +1,21 @@
---
--- Built with,
---
---        ,gggg,
---       d8" "8I                         ,dPYb,
---       88  ,dP                         IP'`Yb
---    8888888P"                          I8  8I
---       88                              I8  8'
---       88        gg      gg    ,g,     I8 dPgg,
---  ,aa,_88        I8      8I   ,8'8,    I8dP" "8I
--- dP" "88P        I8,    ,8I  ,8'  Yb   I8P    I8
--- Yb,_,d88b,,_   ,d8b,  ,d8b,,8'_   8) ,d8     I8,
---  "Y8P"  "Y888888P'"Y88P"`Y8P' "YY8P8P88P     `Y8
---
+local lush       = require('lush')
+local hsl        = lush.hsl
 
--- This is a starter colorscheme for use with Lush,
--- for usage guides, see :h lush or :LushRunTutorial
+local sea_deep   = hsl(200, 41, 7) -- you can just type them normally.
+local sea_white  = hsl(0, 0, 100)
 
---
--- Note: Because this is a lua file, vim will append it to the runtime,
---       which means you can require(...) it in other lua code (this is useful),
---       but you should also take care not to conflict with other libraries.
---
---       (This is a lua quirk, as it has somewhat poor support for namespacing.)
---
---       Basically, name your file,
---
---       "super_theme/lua/lush_theme/super_theme_dark.lua",
---
---       not,
---
---       "super_theme/lua/dark.lua".
---
---       With that caveat out of the way...
---
-
--- Enable lush.ify on this file, run:
---
---  `:Lushify`
---
---  or
---
---  `:lua require('lush').ify()`
-
-local lush      = require('lush')
-local hsl       = lush.hsl
-
-local sea_deep  = hsl(200, 41, 7) -- you can just type them normally.
-local sea_white = hsl(0, 0, 100)
+local background = hsl(210, 16, 9.8)
+local text       = hsl(189, 36.9, 78.2)
+local comment    = hsl(204, 17.6, 33.3)
+local keyword    = hsl(184, 43, 62.2)
+local statement  = hsl(186, 42.6, 81.6)
+local constant   = hsl(189, 36.9, 78.2)
+local diffchange = hsl(18, 15, 37.1)
 
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
 -- support an annotation like the following. Consult your server documentation.
 ---@diagnostic disable: undefined-global
-local theme     = lush(function(injected_functions)
+local theme      = lush(function(injected_functions)
   local sym = injected_functions.sym
   return {
     -- The following are the Neovim (as of 0.8.0-dev+100-g371dfb174) highlight
@@ -69,11 +33,11 @@ local theme     = lush(function(injected_functions)
     -- CurSearch      { }, -- Highlighting a search pattern under the cursor (see 'hlsearch')
     -- lCursor        { }, -- Character under the cursor when |language-mapping| is used (see 'guicursor')
     -- Directory      { }, -- Directory names (and other special names in listings)
-    -- DiffAdd        { }, -- Diff mode: Added line |diff.txt|
-    -- DiffChange     { }, -- Diff mode: Changed line |diff.txt|
+    DiffAdd { bg = background, fg = keyword },       -- Diff mode: Added line |diff.txt|
+    DiffChange { bg = background, fg = diffchange }, -- Diff mode: Changed line |diff.txt|
     -- DiffDelete     { }, -- Diff mode: Deleted line |diff.txt|
     -- DiffText       { }, -- Diff mode: Changed text within a changed line |diff.txt|
-    EndOfBuffer { fg = sea_deep }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
+    EndOfBuffer { fg = background }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
     -- TermCursor     { }, -- Cursor in a focused terminal
     -- TermCursorNC   { }, -- Cursor in an unfocused terminal
     -- ErrorMsg       { }, -- Error messages on the command line
@@ -86,7 +50,7 @@ local theme     = lush(function(injected_functions)
     -- LineNr         { }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
     -- LineNrAbove    { }, -- Line number for when the 'relativenumber' option is set, above the cursor line
     -- LineNrBelow    { }, -- Line number for when the 'relativenumber' option is set, below the cursor line
-    -- CursorLineNr   { }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
+    CursorLineNr { fg = keyword }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
     -- CursorLineFold { }, -- Like FoldColumn when 'cursorline' is set for the cursor line
     -- CursorLineSign { }, -- Like SignColumn when 'cursorline' is set for the cursor line
     -- MatchParen     { }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
@@ -95,8 +59,8 @@ local theme     = lush(function(injected_functions)
     -- MsgSeparator   { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
     -- MoreMsg        { }, -- |more-prompt|
     -- NonText { fg = sea_deep },                 -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-    Normal { bg = sea_deep, fg = sea_white },    -- Normal text
-    Comment { fg = Normal.bg.de(25).li(25).ro(-10) },
+    Normal { bg = background, fg = text },       -- Normal text
+    Comment { fg = comment },
     CursorLine { bg = Normal.bg.lighten(10) },   -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
     LineNr { Comment, gui = "italic" },
     Cursor { bg = Normal.bg.lighten(15) },       -- Character under the cursor
@@ -148,17 +112,17 @@ local theme     = lush(function(injected_functions)
 
     -- Comment        { }, -- Any comment
 
-    -- Constant       { }, -- (*) Any constant
+    Constant { fg = constant }, -- (*) Any constant
     -- String         { }, --   A string constant: "this is a string"
     -- Character      { }, --   A character constant: 'c', '\n'
     -- Number         { }, --   A number constant: 234, 0xff
     -- Boolean        { }, --   A boolean constant: TRUE, false
     -- Float          { }, --   A floating point constant: 2.3e10
 
-    -- Identifier     { }, -- (*) Any variable name
-    -- Function       { }, --   Function name (also: methods for classes)
+    Identifier { fg = keyword },  -- (*) Any variable name
+    Function { fg = keyword },    --   Function name (also: methods for classes)
 
-    -- Statement      { }, -- (*) Any statement
+    Statement { fg = statement }, -- (*) Any statement
     -- Conditional    { }, --   if, then, else, endif, switch, etc.
     -- Repeat         { }, --   for, do, while, etc.
     -- Label          { }, --   case, default, etc.

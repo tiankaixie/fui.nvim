@@ -4,7 +4,8 @@ local hsl        = lush.hsl
 local sea_deep   = hsl(200, 41, 7) -- you can just type them normally.
 local sea_white  = hsl(0, 0, 100)
 
-local background = hsl(210, 16, 9.8)
+-- local background = hsl(210, 16, 9.8)
+local background = hsl(220, 12, 4.9)
 local text       = hsl(189, 36.9, 78.2)
 local comment    = hsl(204, 17.6, 33.3)
 local keyword    = hsl(184, 43, 62.2)

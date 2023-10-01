@@ -63,7 +63,7 @@ local theme      = lush(function(injected_functions)
     -- MoreMsg        { }, -- |more-prompt|
     -- NonText { fg = sea_deep },                 -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
     Normal { bg = background, fg = text },       -- Normal text
-    Comment { fg = comment },
+    Comment { fg = comment, gui = "italic" },    -- Any comment
     CursorLine { bg = Normal.bg.lighten(10) },   -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
     LineNr { Comment, gui = "italic" },
     Cursor { bg = Normal.bg.lighten(15) },       -- Character under the cursor
@@ -139,7 +139,7 @@ local theme      = lush(function(injected_functions)
     -- Macro          { }, --   Same as Define
     -- PreCondit      { }, --   Preprocessor #if, #else, #endif, etc.
 
-    -- Type           { }, -- (*) int, long, char, etc.
+    Type { fg = keyword, gui = "bold" }, -- (*) int, long, char, etc.
     -- StorageClass   { }, --   static, register, volatile, etc.
     -- Structure      { }, --   struct, union, enum, etc.
     -- Typedef        { }, --   A typedef

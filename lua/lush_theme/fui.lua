@@ -11,6 +11,8 @@ local keyword    = hsl(184, 43, 62.2)
 local statement  = hsl(186, 42.6, 81.6)
 local constant   = hsl(189, 36.9, 78.2)
 local diffchange = hsl(18, 15, 37.1)
+local definefg   = hsl(190, 29.6, 72.2)
+local definebg   = hsl(207, 16.4, 13.1)
 
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
 -- support an annotation like the following. Consult your server documentation.
@@ -130,7 +132,7 @@ local theme      = lush(function(injected_functions)
     -- Keyword        { }, --   any other keyword
     -- Exception      { }, --   try, catch, throw
 
-    -- PreProc        { }, -- (*) Generic Preprocessor
+    PreProc { fg = definefg, bg = definebg }, -- (*) Generic Preprocessor
     -- Include        { }, --   Preprocessor #include
     -- Define         { }, --   Preprocessor #define
     -- Macro          { }, --   Same as Define
@@ -141,7 +143,7 @@ local theme      = lush(function(injected_functions)
     -- Structure      { }, --   struct, union, enum, etc.
     -- Typedef        { }, --   A typedef
 
-    -- Special        { }, -- (*) Any special symbol
+    Special { fg = diffchange }, -- (*) Any special symbol
     -- SpecialChar    { }, --   Special character in a constant
     -- Tag            { }, --   You can use CTRL-] on this
     -- Delimiter      { }, --   Character that needs attention

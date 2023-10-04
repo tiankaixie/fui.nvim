@@ -14,11 +14,15 @@ local constant   = hsl(189, 36.9, 78.2)
 local diffchange = hsl(18, 15, 37.1)
 local definefg   = hsl(190, 29.6, 72.2)
 local definebg   = hsl(207, 16.4, 13.1)
+local menubg     = "#171b1d"
+local menufg     = "#273837"
+local special    = "#d4af6e"
+
 
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
 -- support an annotation like the following. Consult your server documentation.
 ---@diagnostic disable: undefined-global
-local theme      = lush(function(injected_functions)
+local theme = lush(function(injected_functions)
   local sym = injected_functions.sym
   return {
     -- The following are the Neovim (as of 0.8.0-dev+100-g371dfb174) highlight
@@ -33,7 +37,7 @@ local theme      = lush(function(injected_functions)
     --
     -- ColorColumn    { }, -- Columns set with 'colorcolumn'
     -- Conceal { bg = sea_deep },  -- Placeholder characters substituted for concealed text (see 'conceallevel')
-    -- CurSearch      { }, -- Highlighting a search pattern under the cursor (see 'hlsearch')
+    -- CurSearch { bg = background.lighten(20) }, -- Highlighting a search pattern under the cursor (see 'hlsearch')
     -- lCursor        { }, -- Character under the cursor when |language-mapping| is used (see 'guicursor')
     -- Directory      { }, -- Directory names (and other special names in listings)
     DiffAdd { bg = background, fg = keyword },       -- Diff mode: Added line |diff.txt|
@@ -69,12 +73,12 @@ local theme      = lush(function(injected_functions)
     Cursor { bg = Normal.bg.lighten(15) },       -- Character under the cursor
     CursorIM { bg = Normal.bg.lighten(15) },     -- Like Cursor, but used when in IME mode |CursorIM|
     CursorColumn { bg = Normal.bg.lighten(15) }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
-    -- NormalFloat    { }, -- Normal text in floating windows.
+    NormalFloat { bg = menubg },                 -- Normal text in floating windows.
     -- FloatBorder    { }, -- Border of floating windows.
     -- FloatTitle     { }, -- Title of floating windows.
     -- NormalNC       { }, -- normal text in non-current windows
-    -- Pmenu          { }, -- Popup menu: Normal item.
-    -- PmenuSel       { }, -- Popup menu: Selected item.
+    Pmenu { bg = menubg, fg = comment },                   -- Popup menu: Normal item.
+    PmenuSel { bg = Normal.bg.lighten(20), fg = keyword }, -- Popup menu: Selected item.
     -- PmenuKind      { }, -- Popup menu: Normal item "kind"
     -- PmenuKindSel   { }, -- Popup menu: Selected item "kind"
     -- PmenuExtra     { }, -- Popup menu: Normal item "extra text"
@@ -83,7 +87,7 @@ local theme      = lush(function(injected_functions)
     -- PmenuThumb     { }, -- Popup menu: Thumb of the scrollbar.
     -- Question       { }, -- |hit-enter| prompt and yes/no questions
     -- QuickFixLine   { }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
-    -- Search         { }, -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
+    Search { fg = text.lighten(20), bg = background.lighten(20) }, -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
     -- SpecialKey     { }, -- Unprintable characters: text displayed differently from what it really is. But not 'listchars' whitespace. |hl-Whitespace|
     -- SpellBad       { }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
     -- SpellCap       { }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
@@ -133,7 +137,7 @@ local theme      = lush(function(injected_functions)
     -- Keyword        { }, --   any other keyword
     -- Exception      { }, --   try, catch, throw
 
-    PreProc { fg = definefg, bg = definebg }, -- (*) Generic Preprocessor
+    PreProc { fg = definefg, gui = "bold" }, -- (*) Generic Preprocessor
     -- Include        { }, --   Preprocessor #include
     -- Define         { }, --   Preprocessor #define
     -- Macro          { }, --   Same as Define
@@ -144,7 +148,7 @@ local theme      = lush(function(injected_functions)
     -- Structure      { }, --   struct, union, enum, etc.
     -- Typedef        { }, --   A typedef
 
-    Special { fg = diffchange }, -- (*) Any special symbol
+    Special { fg = special }, -- (*) Any special symbol
     -- SpecialChar    { }, --   Special character in a constant
     -- Tag            { }, --   You can use CTRL-] on this
     -- Delimiter      { }, --   Character that needs attention

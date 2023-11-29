@@ -17,6 +17,7 @@ local definebg   = hsl(207, 16.4, 13.1)
 local menubg     = "#171b1d"
 local menufg     = "#273837"
 local special    = "#d4af6e"
+local deleted    = "#9b90a1"
 
 
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
@@ -42,9 +43,9 @@ local theme = lush(function(injected_functions)
     Directory { fg = comment.lighten(20) }, -- Directory names (and other special names in listings)
     DiffAdd { fg = keyword },               -- Diff mode: Added line |diff.txt|
     DiffChange { fg = diffchange },         -- Diff mode: Changed line |diff.txt|
-    -- DiffDelete     { }, -- Diff mode: Deleted line |diff.txt|
+    DiffDelete { fg = deleted },            -- Diff mode: Deleted line |diff.txt|
     -- DiffText       { }, -- Diff mode: Changed text within a changed line |diff.txt|
-    EndOfBuffer { fg = background }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
+    EndOfBuffer { fg = background },        -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
     -- TermCursor     { }, -- Cursor in a focused terminal
     -- TermCursorNC   { }, -- Cursor in an unfocused terminal
     -- ErrorMsg       { }, -- Error messages on the command line
@@ -65,17 +66,17 @@ local theme = lush(function(injected_functions)
     -- MsgArea        { }, -- Area for messages and cmdline
     -- MsgSeparator   { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
     -- MoreMsg        { }, -- |more-prompt|
-    NonText { fg = comment.lighten(20) },        -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-    Normal { bg = background, fg = text },       -- Normal text
-    Comment { fg = comment, gui = "italic" },    -- Any comment
-    CursorLine { bg = Normal.bg.lighten(10) },   -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
+    NonText { fg = comment.lighten(20) },                  -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
+    Normal { bg = background, fg = text },                 -- Normal text
+    Comment { fg = comment, gui = "italic" },              -- Any comment
+    CursorLine { bg = Normal.bg.lighten(10) },             -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
     LineNr { Comment, gui = "italic" },
-    Cursor { bg = Normal.bg.lighten(15) },       -- Character under the cursor
-    CursorIM { bg = Normal.bg.lighten(15) },     -- Like Cursor, but used when in IME mode |CursorIM|
-    CursorColumn { bg = Normal.bg.lighten(15) }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
-    NormalFloat { bg = menubg },                 -- Normal text in floating windows.
+    Cursor { bg = Normal.bg.lighten(15) },                 -- Character under the cursor
+    CursorIM { bg = Normal.bg.lighten(15) },               -- Like Cursor, but used when in IME mode |CursorIM|
+    CursorColumn { bg = Normal.bg.lighten(15) },           -- Screen-column at the cursor, when 'cursorcolumn' is set.
+    NormalFloat { bg = menubg },                           -- Normal text in floating windows.
     -- FloatBorder    { }, -- Border of floating windows.
-    -- FloatTitle     { }, -- Title of floating windows.
+    FloatTitle { fg = deleted },                           -- Title of floating windows.
     -- NormalNC       { }, -- normal text in non-current windows
     Pmenu { bg = menubg, fg = comment },                   -- Popup menu: Normal item.
     PmenuSel { bg = Normal.bg.lighten(20), fg = keyword }, -- Popup menu: Selected item.
@@ -98,7 +99,7 @@ local theme = lush(function(injected_functions)
     -- TabLine        { }, -- Tab pages line, not active tab page label
     -- TabLineFill    { }, -- Tab pages line, where there are no labels
     -- TabLineSel     { }, -- Tab pages line, active tab page label
-    -- Title          { }, -- Titles for output from ":set all", ":autocmd" etc.
+    Title { fg = deleted },                                 -- Titles for output from ":set all", ":autocmd" etc.
     -- Visual         { }, -- Visual mode selection
     Visual { fg = Normal.fg, bg = background.lighten(20) }, -- Try pressing v and selecting some text
     -- VisualNOS      { }, -- Visual mode selection when vim is "Not Owning the Selection".

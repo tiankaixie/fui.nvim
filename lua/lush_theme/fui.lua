@@ -18,6 +18,7 @@ local menubg     = "#171b1d"
 local menufg     = "#273837"
 local special    = "#d4af6e"
 local deleted    = "#9b90a1"
+local warn       = hsl(30, 100, 50)
 
 
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
@@ -179,7 +180,7 @@ local theme = lush(function(injected_functions)
     -- DiagnosticError            { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
     -- DiagnosticWarn             { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
     -- DiagnosticInfo             { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-    DiagnosticHint { fg = special },           -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+    DiagnosticHint { fg = warn }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
     -- DiagnosticOk               { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
     -- DiagnosticVirtualTextError { } , -- Used for "Error" diagnostic virtual text.
     -- DiagnosticVirtualTextWarn  { } , -- Used for "Warn" diagnostic virtual text.
